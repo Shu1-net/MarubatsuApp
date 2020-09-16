@@ -6,6 +6,7 @@
 //  Copyright © 2020 shuichiama.com. All rights reserved.
 //
 
+//おつかれさま
 import UIKit
 
 class TopViewController: UIViewController {
@@ -18,15 +19,12 @@ class TopViewController: UIViewController {
 
 //  アンサービューへの移動ボタン
     @IBAction func toAnswerButton(_ sender: Any) {
-        
         let storyboard: UIStoryboard = self.storyboard!
         let second = storyboard.instantiateViewController(withIdentifier: "answerView")
         second.modalPresentationStyle = .fullScreen
-
+        
         self.present(second, animated: true, completion: nil)
     }
-    
-    
     
 //  問題文作成ビューへの移動ボタン
     @IBAction func toQuestionButton(_ sender: Any) {

@@ -27,8 +27,6 @@ class ViewController: UIViewController {
             
             questions = userDefaults.object(forKey: "questions")as! [[String:Any]]
         }
-        
-        
         showQuestion()
     }
     
@@ -37,32 +35,14 @@ class ViewController: UIViewController {
 //      問題以降のための数字を積む変数
     var currentQustionsNumber:Int = 0
 //      正解数をカウントする変数
-    var answerCount:Int = 0
+    var correctAnswerCount:Int = 0
 //  配列(辞書)のデータの順番。アクセスするため、Int型
     
     
     var questions:[[String:Any]] = []
 //    配列を宣言(class内ならどこでもいい)
-    
-/*        let questions:[[String:Any]] =
-    [
-        [
-        "question":"BLEACHの吉良イヅルの斬魄刀の解号名は「面を上げろ、侘助」である",
-        "answer":true
-        ],
-        
-        [
-        "question":"SKET DANCEのスイッチの好きな十刃はゾマリ・ルルーである",
-        "answer":false
-        ],
-        
-        [
-        "question":"法律なんかクソくらえ",
-        "answer":false
-        ]
-    ]
-*/
-    
+
+
 //  問題を表示するための関数。これの名前を指定して呼び起こす
     func showQuestion(){
 //      配列が空でなければ、、、
@@ -89,7 +69,6 @@ class ViewController: UIViewController {
     
 //  回答のチェック関数  (後にボタンで使うためにuserAnswerはBool型だと宣言)
     func checkAnswer(userAnswer:Bool){
-        
 //      変数名は同じだが、中身は違う
         let question = questions[currentQustionsNumber]
         
@@ -98,10 +77,9 @@ class ViewController: UIViewController {
 //          合ってれば、次の問題に移行できるようにする
             if userAnswer == ans{
 //              正解の場合
-                answerCount += 1
+                correctAnswerCount += 1
                 currentQustionsNumber += 1
                 showAlert(message: "正解")
-                
             } else {
 //              不正解の場合
                 currentQustionsNumber += 1
@@ -113,49 +91,49 @@ class ViewController: UIViewController {
                 return
         }
         
-        print(currentQustionsNumber)
-//      正解でも次の問題を表示、不正解の場合でも次の問題を表示
+//        print(currentQustionsNumber)
+//         正解でも次の問題を表示、不正解の場合でも次の問題を表示
+        /*
         if currentQustionsNumber < questions.count {
             showQuestion()
         } else {
-//            goToAnswerCount()
+           goToAnswerCount()
         }
+        */
     }
-/*
-//        問題数を上回ったときに最初の問題に戻るため。＋新しいviewに移動
-        if currentQustionsNumber ==  questions.count {
-//           currentQustionsNumber = 0
-//正答数をカウントした変数を保存し、別ファイルで呼び起こせるようにする
-            print("移動する前")
-            
-            let storyboard: UIStoryboard = self.storyboard!
-            let third = storyboard.instantiateViewController(withIdentifier: "answerCountView")
-            self.present(third, animated: true, completion: nil)
-        }
-            print("移動できた？")
-//      正解だったら次の問題を表示、不正解の場合は同じ問題を再度表示
-        showQuestion()
-        print(answerCount)
-        print(currentQustionsNumber)
-    }
-*/
- 
     
 
+//   alertを消したあとに画面遷移するかどうかを決めるだけの関数
+    func alertAction(){
+        if currentQustionsNumber < questions.count {
+            showQuestion()
+        } else {
+            goToAnswerCount()
+        }
+    }
+    
+    
 //    最後の問題を解くと、画面が移り変わるアクション
     func goToAnswerCount(){
-        //        問題数を上回ったときに最初の問題に戻るため。＋新しいviewに移動
-//        if currentQustionsNumber >=  questions.count {
-            //           currentQustionsNumber = 0
-            //正答数をカウントした変数を保存し、別ファイルで呼び起こせるようにする
+        
+//      ファイルのインスタンス作成
+        let answerCountViewController = AnswerCountViewController()
+        
+//        問題数を上回ったときに最初の問題に戻るため。＋新しいviewに移動
+//正答数をカウントした変数を保存し、別ファイルで呼び起こせるようにする
             
             let storyboard: UIStoryboard = self.storyboard!
             let third = storyboard.instantiateViewController(withIdentifier: "answerCountView") as! AnswerCountViewController
+                
 //        sleep(UInt32(2.5))
+//        時間をおいてみたが効果なし
             self.present(third, animated: true, completion: nil)
-        print("移動できた？")
-    }
+        print("移動できた？正答数",correctAnswerCount)
 
+        answerCountViewController.getCorrectAnswerNumber(for: correctAnswerCount)
+//        AnswerCountへ正答数(correctAnswerCount)を送る
+
+    }
     
     
 //    正解、不正解をalertで表示  messageをString型宣言し、後で使う
@@ -164,12 +142,30 @@ class ViewController: UIViewController {
 //      オプションUIAlertC、Aを使い、要素を指定。
         let alert = UIAlertController(title: nil, message:message, preferredStyle: .alert)
     
-        let close = UIAlertAction(title: "close", style: .cancel,handler: nil)
+        let close = UIAlertAction(title: "close", style: .cancel, handler:{
+        (action:UIAlertAction!) -> Void in
+            self.alertAction()
+        })
         
-//      ボタンを押した時にでるポップアップを追加
-        alert.addAction(close)
+        
+//          ボタンを押した時にでるポップアップを追加
+            alert.addAction(close)
+//        これをUIAlertActionで表示
+        /*
+        if currentQustionsNumber == questions.count {
+            showQuestion()
+        } else {
+            goToAnswerCount()
+        }
+        */
+
+        
+        print("今の問題番号:",currentQustionsNumber,"質問数:",questions.count)
         
         present(alert, animated: true, completion: nil)
+//       closeしたあとに、問題表示！
+        showQuestion()
+
     }
     
     
