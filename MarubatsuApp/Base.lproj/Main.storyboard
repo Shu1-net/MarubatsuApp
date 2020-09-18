@@ -144,7 +144,7 @@
         <!--Answer Count View Controller-->
         <scene sceneID="gdT-A3-Nnb">
             <objects>
-                <viewController storyboardIdentifier="answerCountView" id="IkB-Wc-S4X" customClass="AnswerCountViewController" customModule="MarubatsuApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="answerCountView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="IkB-Wc-S4X" customClass="AnswerCountViewController" customModule="MarubatsuApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wJF-sj-esf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

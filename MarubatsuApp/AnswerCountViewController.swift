@@ -9,24 +9,58 @@
 import UIKit
 
 class AnswerCountViewController: UIViewController {
-
+    
+//    var answerArray = [String]()
+//    配列を.....
+    
+    var correctAnswerNumber = [String]()
+    var correctAnswerCount = [Int]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        
+//      ユーザデフォで値渡し
+//        UserDefaults.standard.data(forKey: "correctAnswerCount")
+        
+        /*
+        let userDefaults = UserDefaults.standard
+                    
+//          上の変数を使って、データを取ってきてnilチェック
+        if userDefaults.object(forKey: "correctAnswercount") != nil {
+            correctAnswerCount = userDefaults.object(forKey: "correctAnswerCount")
+                as! [Int]}
+        var correctAnswerNumber = "\(correctAnswerCount)問正解！"
+        */
+        
+        
+//        self.answerCountLabel?.text = correctAnswerNumber
+//        self.answerCountLabel?.text = answerArray.last
+//        配列を作って取り出そうとしたが断念...
     }
     
 
 
-    func getCorrectAnswerNumber(for correctAnswerCount: Int){
+//for correctAnswerCount: Int
+    func getCorrectAnswerNumber(for finalCount: String){
         
-        let correctAnswerNumber = "\(correctAnswerCount)問正解！"
         
-        print("インスタンス接続ok",correctAnswerNumber)
+//        let finalCount = String(correctAnswerCount)
+        if  finalCount != ""{
+            let correctAnswerNumber = "\(finalCount)問正解！"
+
+//        print("インスタンス接続ok",correctAnswerNumber)
+        DispatchQueue.main.async {
+            print("ラベル前接続ok")
+
+        self.answerCountLabel?.text = String(correctAnswerNumber)
+            print("ラベル後接続ok",correctAnswerNumber)
+        }
+
+        }
         
-//        DispatchQueue.main.async {
-        self.answerCountLabel?.text = correctAnswerNumber
-//        }
     }
+ 
     
 //  正解数を表示するラベル
     @IBOutlet var answerCountLabel: UILabel!
