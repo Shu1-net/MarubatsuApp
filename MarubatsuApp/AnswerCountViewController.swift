@@ -10,38 +10,27 @@ import UIKit
 
 class AnswerCountViewController: UIViewController {
     
-//    var answerArray = [String]()
 //    配列を.....
     
     var correctAnswerNumber = [String]()
-    var correctAnswerCount = [Int]()
+    var correctAnswerArray = [Int]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
 //      ユーザデフォで値渡し
-//        UserDefaults.standard.data(forKey: "correctAnswerCount")
         
-        /*
         let userDefaults = UserDefaults.standard
-                    
-//          上の変数を使って、データを取ってきてnilチェック
-        if userDefaults.object(forKey: "correctAnswercount") != nil {
-            correctAnswerCount = userDefaults.object(forKey: "correctAnswerCount")
-                as! [Int]}
-        var correctAnswerNumber = "\(correctAnswerCount)問正解！"
-        */
         
+        if userDefaults.object(forKey: "correctAnswerCount") != nil{
+            correctAnswerArray = userDefaults.object(forKey: "correctAnswerCount") as! [Int]
+        }
+        let correctAnswerNumber:String = "\(correctAnswerArray)問正解！"
         
-//        self.answerCountLabel?.text = correctAnswerNumber
-//        self.answerCountLabel?.text = answerArray.last
-//        配列を作って取り出そうとしたが断念...
+        self.answerCountLabel?.text = correctAnswerNumber
     }
-    
-
-
-//for correctAnswerCount: Int
+        
+    /*UserDefaultsを使うためコメントアウト
     func getCorrectAnswerNumber(for finalCount: String){
         
         
@@ -60,7 +49,7 @@ class AnswerCountViewController: UIViewController {
         }
         
     }
- 
+ ここまで*/
     
 //  正解数を表示するラベル
     @IBOutlet var answerCountLabel: UILabel!

@@ -109,32 +109,31 @@ class ViewController: UIViewController {
             showQuestion()
         } else {
             goToAnswerCount()
+//          アクション3 ユーザデフォで正答数の値渡し
+            UserDefaults.standard.set({self.correctAnswerCount}, forKey: "correctAnswerCount")
         }
     }
     
-    var finalCount = ""
 //    最後の問題を解くと、画面が移り変わるアクション
     func goToAnswerCount(){
-        
+        print("正答数",correctAnswerCount)
+
 //      AnswerCountViewControllerファイルのインスタンス作成
-          let answerCountViewController = AnswerCountViewController()
+//          let answerCountViewController = AnswerCountViewController()
         
 //        問題数を上回ったときに最初の問題に戻るため。＋新しいviewに移動
 //正答数をカウントした変数を保存し、別ファイルで呼び起こせるようにする
             
+
             let storyboard: UIStoryboard = self.storyboard!
             let third = storyboard.instantiateViewController(withIdentifier: "answerCountView") as! AnswerCountViewController
         
-//          アクション3 ユーザデフォで正答数の値渡し
-//       UserDefaults.standard.set({self.correctAnswerCount}, forKey: "correctAnswerCount")
         
 
             self.present(third, animated: true, completion: nil)
         print("移動できた？正答数",correctAnswerCount)
 
-        var finalCount = "\(correctAnswerCount)"
-        
-        answerCountViewController.getCorrectAnswerNumber(for: finalCount)
+//        answerCountViewController.getCorrectAnswerNumber(for: finalCount)
 //        AnswerCountへ正答数(correctAnswerCount)を送る
 
     }
