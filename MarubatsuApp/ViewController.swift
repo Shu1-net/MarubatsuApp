@@ -105,12 +105,16 @@ class ViewController: UIViewController {
 
 //   alertを消したあとに画面遷移するかどうかを決めるだけの関数
     func alertAction(){
+        
         if currentQustionsNumber < questions.count {
             showQuestion()
         } else {
+//            ここまでバグなし
+//            アクション3 ユーザデフォで正答数の値渡し
+            UserDefaults.standard.set(self.correctAnswerCount, forKey: "correctAnswerCount")
+            print(correctAnswerCount)
+
             goToAnswerCount()
-//          アクション3 ユーザデフォで正答数の値渡し
-            UserDefaults.standard.set({self.correctAnswerCount}, forKey: "correctAnswerCount")
         }
     }
     
@@ -147,6 +151,7 @@ class ViewController: UIViewController {
     
         let close = UIAlertAction(title: "close", style: .cancel, handler:{
         (action:UIAlertAction!) -> Void in
+
             self.alertAction()
         })
         

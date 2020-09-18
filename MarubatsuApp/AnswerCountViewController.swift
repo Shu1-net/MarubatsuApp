@@ -13,7 +13,7 @@ class AnswerCountViewController: UIViewController {
 //    配列を.....
     
     var correctAnswerNumber = [String]()
-    var correctAnswerArray = [Int]()
+    var correctAnswerCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,15 +22,17 @@ class AnswerCountViewController: UIViewController {
         
         let userDefaults = UserDefaults.standard
         
-        if userDefaults.object(forKey: "correctAnswerCount") != nil{
-            correctAnswerArray = userDefaults.object(forKey: "correctAnswerCount") as! [Int]
-        }
-        let correctAnswerNumber:String = "\(correctAnswerArray)問正解！"
         
-        self.answerCountLabel?.text = correctAnswerNumber
+        if userDefaults.object(forKey: "correctAnswerCount") != nil{
+            correctAnswerCount = userDefaults.integer(forKey: "correctAnswerCount")
+        }
+        
+        print(correctAnswerCount)
+        
+        self.answerCountLabel?.text = "\(correctAnswerCount)問正解！"
     }
         
-    /*UserDefaultsを使うためコメントアウト
+    /*UserDefaultsを使うので、要らないからコメントアウト
     func getCorrectAnswerNumber(for finalCount: String){
         
         
